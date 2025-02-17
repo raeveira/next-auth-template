@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form"
 import {LoginFormSchema} from "@/lib/schemas"
 import {z} from "zod";
 import {Eye, EyeClosed} from 'lucide-react'
+import {DEFAULT_LOGIN_REDIRECT} from "@/lib/routes";
 
 import {Button} from "@/components/ui/button"
 import {
@@ -38,11 +39,14 @@ export const LoginForm = () => {
     })
 
     async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
-
-        await login(values).finally(() => {
+        await login(values).then((response) => {
+            if(response.code === 200) {
+                setMessage({message: response.data.message, type: 'success'})
+                setTimeout(() => {
+                    window.location.href = DEFAULT_LOGIN_REDIRECT
+                }, 2000)
+            }
+        }).finally(() => {
             setInterval(() => {
                 clearMessage()
             }, 5000)

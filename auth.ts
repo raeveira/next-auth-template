@@ -4,7 +4,6 @@ import {prisma, retrieveUserById} from "@/prisma/script";
 import {PrismaAdapter} from "@auth/prisma-adapter";
 
 export const {auth, handlers, signIn, signOut} = NextAuth({
-    trustHost: true,
     adapter: PrismaAdapter(prisma),
     session: {strategy: "jwt"},
     ...authConfig,
@@ -37,5 +36,5 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
 
             return token;
         }
-    }
+    },
 })

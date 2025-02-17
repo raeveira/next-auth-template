@@ -1,7 +1,5 @@
 'use server'
-import {redirect} from "next/navigation";
 import {signIn} from "@/auth";
-import {DEFAULT_LOGIN_REDIRECT} from "@/lib/routes";
 
 export const login = async (data: { email: string, password: string }) => {
 
@@ -12,8 +10,10 @@ export const login = async (data: { email: string, password: string }) => {
             redirect: false
         });
 
+        console.log(response);
+
         if (response.ok) {
-            redirect(DEFAULT_LOGIN_REDIRECT);
+            return ({data: {message: "Logged in successfully"}, code: 200, errorType: ''});
         } else {
             return ({error: {message: "Invalid credentials", code: 401, errorType: 'UNAUTHORIZED'}});
         }
