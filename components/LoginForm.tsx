@@ -23,11 +23,7 @@ import {credentialLogin} from "@/app/actions/auth/login";
 import {Message} from "@/components/Message";
 import {Separator} from "@/components/ui/separator";
 import {linkGithub} from "@/app/actions/auth/linkProviders";
-
-interface messageType {
-    message: string;
-    type: 'success' | 'error' | '';
-}
+import {messageType} from "@/lib/interfaces";
 
 export const LoginForm = () => {
     const searchParams = useSearchParams()
