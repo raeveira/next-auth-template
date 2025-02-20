@@ -45,6 +45,8 @@ export const LoginForm = () => {
                 setTimeout(() => {
                     window.location.href = DEFAULT_LOGIN_REDIRECT
                 }, 2000)
+            } else {
+                setMessage({message: response.error?.message || '', type: 'error'})
             }
         }).finally(() => {
             setInterval(() => {
@@ -59,7 +61,7 @@ export const LoginForm = () => {
 
     return (
         <Form {...form}>
-            <Message message={message.message} type={message.type} onClose={clearMessage}/>
+            <Message message={message.message} type={message.type} onCloseAction={clearMessage}/>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
                     control={form.control}
