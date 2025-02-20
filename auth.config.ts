@@ -3,6 +3,7 @@ import {NextAuthConfig} from "next-auth";
 import {LoginFormSchema} from "@/lib/schemas";
 import {retrieveUser} from "@/prisma/script";
 import bcrypt from "bcryptjs";
+import {SignInError} from "@auth/core/errors";
 
 export default {
     providers: [
@@ -15,21 +16,22 @@ export default {
 
                     const user = await retrieveUser(parsedCredentials.email);
 
-                    if(user) {
+                    if (user && user.password) {
                         const isMatch = await bcrypt.compare(parsedCredentials.password, user.password);
-                        if(isMatch) {
+                        if (isMatch) {
                             return {
                                 ...user
                             };
                         } else {
-                            return null;
+                            return null
                         }
                     } else {
-                        return null;
+                        console.log("User not found:", parsedCredentials.email);
+                        // You could throw a custom error here
+                        throw new SignInError({message: 'Invalid credentials', cause: 'User not found'})
                     }
-                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 } catch (error) {
-                    return null
+                    throw error
                 }
             }
         })
