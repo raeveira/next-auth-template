@@ -10,13 +10,14 @@ export default function Home() {
 
     return (
         <main className="min-h-screen flex flex-col lg:flex-row">
-            <div className="w-full lg:w-1/2 relative">
+            <div className="w-full lg:w-1/2 relative max-lg:hidden">
                 <Image
+                    width={1920}
+                    height={1080}
                     src="/home-bg.png"
                     alt="Background"
-                    layout="fill"
-                    objectFit="cover"
                     priority
+                    className={'object-cover w-full h-full'}
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                     <div className="text-white text-center">
