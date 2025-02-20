@@ -10,10 +10,11 @@ import {unlinkProviders} from "@/app/actions/auth/unlinkProviders";
 import {Account} from '@prisma/client'
 import {Message} from "@/components/Message";
 import {messageType} from "@/lib/interfaces";
+import {getServerSession} from "@/app/actions/auth/getServerSession";
 
 const Dashboard = () => {
     const [message, setMessage] = React.useState<messageType>({message: "", type: ""});
-    const {data: session, status} = useSession();
+    const {data: session, status, update} = useSession();
     const router = useRouter();
     const [providers, setProviders] = useState<Account[]>([]);
 
@@ -32,6 +33,16 @@ const Dashboard = () => {
         }
         fetchProviders();
     }, [session]);
+
+    useEffect(() => {
+        const fetchServerSession = async () => {
+            await update(await getServerSession())
+        }
+
+        if (status === "unauthenticated") {
+            fetchServerSession()
+        }
+    }, [status, update]);
 
     const unlink = async (provider: string, userId: string) => {
         const response = await unlinkProviders(provider, userId)
