@@ -7,19 +7,19 @@ import { CheckCircle, XCircle } from 'lucide-react';
 interface MessageProps {
   message: string;
   type: 'success' | 'error' | '';
-  onClose: () => void;
+  onCloseAction: () => void;
 }
 
-export const Message: React.FC<MessageProps> = ({ message, type, onClose }) => {
+export const Message: React.FC<MessageProps> = ({ message, type, onCloseAction }) => {
   useEffect(() => {
     if (message) {
       const timer = setTimeout(() => {
-        onClose();
+        onCloseAction();
       }, 5000);
 
       return () => clearTimeout(timer);
     }
-  }, [message, onClose]);
+  }, [message, onCloseAction]);
 
   const getIcon = () => {
     switch (type) {
