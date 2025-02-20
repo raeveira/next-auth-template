@@ -1,4 +1,5 @@
 import Credentials from "@auth/core/providers/credentials";
+import Github from "@auth/core/providers/github";
 import {NextAuthConfig} from "next-auth";
 import {LoginFormSchema} from "@/lib/schemas";
 import {retrieveUser} from "@/prisma/script";
@@ -34,7 +35,14 @@ export default {
                     throw error
                 }
             }
+        }),
+        Github({
+            clientId: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET
         })
     ],
+    pages: {
+        signIn: "/",
+    },
     trustHost: true,
 } satisfies NextAuthConfig

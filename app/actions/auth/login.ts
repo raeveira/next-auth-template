@@ -1,7 +1,8 @@
 'use server'
 import {signIn} from "@/auth";
+import {AuthError} from "next-auth";
 
-export const login = async (data: { email: string, password: string }) => {
+export const credentialLogin = async (data: { email: string, password: string }) => {
 
     try {
         const response = await signIn('credentials', {
@@ -23,12 +24,20 @@ export const login = async (data: { email: string, password: string }) => {
         const parsedError = JSON.parse(stringifiedError)
         console.log(parsedError.type)
 
-        if(parsedError.type === "AuthError") {
-            return ({error: {message: "Invalid credentials", code:  401, errorType: 'UNAUTHORIZED'}})
+        if (parsedError.type === "AuthError") {
+            return ({error: {message: "Invalid credentials", code: 401, errorType: 'UNAUTHORIZED'}})
         } else {
-            return ({error: {message: "An error occurred while logging in", code: 500, errorType: 'INTERNAL_SERVER_ERROR'}})
+            return ({
+                error: {
+                    message: "An error occurred while logging in",
+                    code: 500,
+                    errorType: 'INTERNAL_SERVER_ERROR'
+                }
+            })
         }
     }
+}
 
-
+export const githubLogin = async () => {
+    await signIn('github', {callbackUrl: '/api/auth/callback/github'})
 }
