@@ -58,10 +58,8 @@ const Dashboard = () => {
         if (session && providers.length > 0) {
             setTimeout(() => {
                 const storedProvider = localStorage.getItem('selectedProvider');
-                console.log('storedProvider', storedProvider);
                 if (storedProvider) {
                     const providerExists = providers.find(p => p.provider === storedProvider);
-                    console.log('providerExists', providerExists);
                     if (providerExists) {
                         setMessage({message: `Successfully linked ${storedProvider}`, type: 'success'});
                     }
