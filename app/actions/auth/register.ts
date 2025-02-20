@@ -2,6 +2,7 @@
 
 import {createUser, retrieveUser} from "@/prisma/script";
 import bcrypt from "bcryptjs";
+import {generateGravatarURL} from "@/app/actions/generatedGravatarURL";
 
 export const register = async (data: { email: string, name: string, password: string, confirmPassword: string }) => {
     try {
@@ -14,7 +15,9 @@ export const register = async (data: { email: string, name: string, password: st
 
         console.log("hashedPassword", hashedPassword);
 
-        const response = await createUser(data.email, data.name, hashedPassword);
+        const gravatarURL = await generateGravatarURL(data.email);
+
+        const response = await createUser(data.email, data.name, gravatarURL, hashedPassword);
 
         console.log("response", response);
 
