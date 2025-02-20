@@ -1,6 +1,5 @@
 'use server'
 import {signIn} from "@/auth";
-import {AuthError} from "next-auth";
 
 export const credentialLogin = async (data: { email: string, password: string }) => {
 
@@ -36,8 +35,4 @@ export const credentialLogin = async (data: { email: string, password: string })
             })
         }
     }
-}
-
-export const githubLogin = async () => {
-    await signIn('github', {callbackUrl: '/api/auth/callback/github'})
 }

@@ -19,9 +19,10 @@ import {
 } from "@/components/ui/form"
 import {Input} from "@/components/ui/input"
 import React, {useEffect} from "react";
-import {githubLogin, credentialLogin} from "@/app/actions/auth/login";
+import {credentialLogin} from "@/app/actions/auth/login";
 import {Message} from "@/components/Message";
 import {Separator} from "@/components/ui/separator";
+import {linkGithub} from "@/app/actions/auth/linkProviders";
 
 interface messageType {
     message: string;
@@ -131,7 +132,7 @@ export const LoginForm = () => {
                 variant="outline"
                 className="w-full"
                 onClick={async () => {
-                    await githubLogin()
+                    await linkGithub()
                 }}
             >
                 <GithubIcon className="mr-2 h-4 w-4"/>
