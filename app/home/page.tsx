@@ -7,7 +7,6 @@ import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {retrieveProviders} from "@/app/actions/auth/retrieveProviders";
 import {unlinkProviders} from "@/app/actions/auth/unlinkProviders";
-
 import {Account} from '@prisma/client'
 import {Message} from "@/components/Message";
 import {messageType} from "@/lib/interfaces";
@@ -68,10 +67,9 @@ const Dashboard = () => {
                     }
                     localStorage.removeItem('selectedProvider');
                 }
-            }, 500); // Adjust the delay as needed
+            }, 500);
         }
     }, [session, providers]);
-
 
     const clearMessage = () => {
         setMessage({message: "", type: ""})
