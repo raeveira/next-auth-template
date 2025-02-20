@@ -5,7 +5,7 @@ import {LoginFormSchema} from "@/lib/schemas"
 import {z} from "zod";
 import {Eye, EyeClosed, GithubIcon} from 'lucide-react'
 import {DEFAULT_LOGIN_REDIRECT} from "@/lib/routes";
-import {useSearchParams} from "next/navigation";
+import {useSearchParams, useRouter} from "next/navigation";
 
 import {Button} from "@/components/ui/button"
 import {
@@ -27,13 +27,14 @@ import {messageType} from "@/lib/interfaces";
 
 export const LoginForm = () => {
     const searchParams = useSearchParams()
+    const router = useRouter()
     const [showPassword, setShowPassword] = React.useState(false)
     const [message, setMessage] = React.useState<messageType>({message: "", type: ""});
 
     useEffect(() => {
         if (searchParams.has('error') && searchParams.get('error') === 'OAuthAccountNotLinked') {
             setMessage({message: 'Another account already exists with the same email address.', type: 'error'});
-        } else if(searchParams.has('error')) {
+        } else if (searchParams.has('error')) {
             setMessage({message: 'An error occurred while logging in.', type: 'error'});
         }
     }, [searchParams])
@@ -50,9 +51,7 @@ export const LoginForm = () => {
         await credentialLogin(values).then((response) => {
             if (response.code === 200) {
                 setMessage({message: response.data.message, type: 'success'})
-                setTimeout(() => {
-                    window.location.href = DEFAULT_LOGIN_REDIRECT
-                }, 2000)
+                router.push(DEFAULT_LOGIN_REDIRECT)
             } else {
                 setMessage({message: response.error?.message || '', type: 'error'})
             }

@@ -3,12 +3,7 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle, XCircle } from 'lucide-react';
-
-interface MessageProps {
-  message: string;
-  type: 'success' | 'error' | '';
-  onCloseAction: () => void;
-}
+import {MessageProps} from "@/lib/interfaces";
 
 export const Message: React.FC<MessageProps> = ({ message, type, onCloseAction }) => {
   useEffect(() => {

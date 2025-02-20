@@ -2,7 +2,6 @@
 import {signIn} from "@/auth";
 
 export const credentialLogin = async (data: { email: string, password: string }) => {
-
     try {
         const response = await signIn('credentials', {
             email: data.email,

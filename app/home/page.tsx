@@ -17,9 +17,11 @@ const Dashboard = () => {
     const router = useRouter();
     const [providers, setProviders] = useState<Account[]>([]);
 
+    console.log(status);
+
     useEffect(() => {
         const fetchProviders = async () => {
-            if (session?.user) {
+            if (session?.user.id) {
                 const response = await retrieveProviders(session.user.id);
                 if ('error' in response) {
                     console.error(response.error);
@@ -28,7 +30,6 @@ const Dashboard = () => {
                 }
             }
         }
-
         fetchProviders();
     }, [session]);
 
@@ -76,8 +77,17 @@ const Dashboard = () => {
     return (
         <div>
             <Message message={message.message} type={message.type} onCloseAction={clearMessage}/>
-            {status === "loading" && <p>Loading...</p>}
-            {status === "unauthenticated" && <p>Access Denied</p>}
+            {status === "loading" && (
+                <div className={'flex items-center justify-center w-full h-screen flex-col'}>
+                    Loading... If this takes too long, please try refreshing the page.
+                </div>
+
+            )}
+            {status === "unauthenticated" && (
+                <div className={'flex items-center justify-center w-full h-screen flex-col'}>
+                    Checking authentication... If this takes too long, please try refreshing the page.
+                </div>
+            )}
             {status === "authenticated" && (
                 <>
                     <p>Access Granted</p>

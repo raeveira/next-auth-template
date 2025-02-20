@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, {Suspense} from "react"
 import {LoginForm} from "@/components/LoginForm"
 import {RegisterForm} from "@/components/RegisterForm"
 import {Button} from "@/components/ui/button"
@@ -47,7 +47,9 @@ export default function Home() {
                             Register
                         </Button>
                     </div>
-                    {login ? <LoginForm/> : <RegisterForm/>}
+                    <Suspense fallback={<div>Loading...</div>}>
+                        {login ? <LoginForm/> : <RegisterForm/>}
+                    </Suspense>
                 </div>
             </div>
         </main>
