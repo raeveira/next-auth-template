@@ -10,16 +10,28 @@ import {Account} from '@prisma/client'
 import {Message} from "@/components/Message";
 import {messageType} from "@/lib/interfaces";
 import {getServerSession} from "@/app/actions/auth/getServerSession";
-import {signOut} from "@/auth";
 import {SignOutButton} from "@/components/SignOutButton";
 
-const Dashboard = () => {
+/*
+* This is the home page component.
+* It displays the user's information and allows them to link/unlink their Github account.
+*
+* @returns JSX.Element
+* */
+const Home = () => {
     const [message, setMessage] = React.useState<messageType>({message: "", type: ""});
     const {data: session, status, update} = useSession();
     const [providers, setProviders] = useState<Account[]>([]);
 
     console.log(status);
 
+    /*
+    * Fetch the user's connected providers.
+    *
+    * This function is used to fetch the user's connected providers.
+    *
+    * @returns void
+    * */
     useEffect(() => {
         const fetchProviders = async () => {
             if (session?.user.id) {
@@ -34,6 +46,13 @@ const Dashboard = () => {
         fetchProviders();
     }, [session]);
 
+    /*
+    * Fetch the user's session from the server.
+    *
+    * This function is used to fetch the user's session from the server.
+    *
+    * @returns void
+    * */
     useEffect(() => {
         const fetchServerSession = async () => {
             await update(await getServerSession())
@@ -44,6 +63,16 @@ const Dashboard = () => {
         }
     }, [status, update]);
 
+    /*
+    * Unlink the user's provider.
+    *
+    * This function is used to unlink the user's provider.
+    *
+    * @param provider - string The provider to unlink.
+    * @param userId - string The user's ID.
+    *
+    * @returns void
+    * */
     const unlink = async (provider: string, userId: string) => {
         const response = await unlinkProviders(provider, userId)
         if (response.code !== 200) {
@@ -54,6 +83,15 @@ const Dashboard = () => {
         }
     }
 
+    /*
+    * Link the user's provider.
+    *
+    * This function is used to link the user's provider.
+    *
+    * @param provider - string The provider to link.
+    *
+    * @returns void
+    * */
     const link = async (provider: string) => {
         localStorage.setItem('selectedProvider', provider);
 
@@ -66,6 +104,13 @@ const Dashboard = () => {
         }
     }
 
+    /*
+    * Check if the user has successfully linked a provider.
+    *
+    * This function is used to check if the user has successfully linked a provider.
+    *
+    * @returns void
+    * */
     useEffect(() => {
         if (session && providers.length > 0) {
             setTimeout(() => {
@@ -81,6 +126,13 @@ const Dashboard = () => {
         }
     }, [session, providers]);
 
+    /*
+    * Clear the message.
+    *
+    * This function is used to clear the message state.
+    *
+    * @returns void
+    * */
     const clearMessage = () => {
         setMessage({message: "", type: ""})
     }
@@ -116,4 +168,4 @@ const Dashboard = () => {
     );
 }
 
-export default Dashboard;
+export default Home;

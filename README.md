@@ -40,21 +40,28 @@ provided by Gravatar.
     ```
     cp .env.example .env
     ```
-5. Start the development server:
+5. Initialize the database:
+    ```
+    npx prisma migrate dev
+    ```
+6. Start the development server:
     ```
     npm run dev
     ```
-6. Open your browser and navigate to `http://localhost:3000`
+7. Open your browser and navigate to `http://localhost:3000`
 
 ## Usage
 
 Provide instructions and examples for using your project. Include code snippets where necessary.
 
 ```typescript jsx
-const App = () => {
+import React from 'react';
+
+const App: React.FC = () => {
     return (
         <div>
-            <h1>Hello, World!</h1>
+            <h1>Welcome to Next.js Auth Template!</h1>
+            <p>This is a template for building applications with authentication and a database.</p>
         </div>
     );
 };

@@ -24,13 +24,29 @@ import {Message} from "@/components/Message";
 import {Separator} from "@/components/ui/separator";
 import {linkGithub} from "@/app/actions/auth/linkProviders";
 import {messageType} from "@/lib/interfaces";
+import {Providers} from "@/components/Providers";
 
+/*
+* This is the login form component.
+*
+* It allows the user to log in using their email and password.
+* Or they can continue with a provider account.
+*
+* @returns JSX.Element
+* */
 export const LoginForm = () => {
     const searchParams = useSearchParams()
     const router = useRouter()
     const [showPassword, setShowPassword] = React.useState(false)
     const [message, setMessage] = React.useState<messageType>({message: "", type: ""});
 
+    /*
+    * Retrieve the error message from the URL.
+    *
+    * This function is used to retrieve the error message from the URL.
+    *
+    * @returns void
+    * */
     useEffect(() => {
         if (searchParams.has('error') && searchParams.get('error') === 'OAuthAccountNotLinked') {
             setMessage({message: 'Another account already exists with the same email address.', type: 'error'});
@@ -39,6 +55,13 @@ export const LoginForm = () => {
         }
     }, [searchParams])
 
+    /*
+    * Create a form instance.
+    *
+    * This function is used to create a form instance.
+    *
+    * @returns void
+    * */
     const form = useForm<z.infer<typeof LoginFormSchema>>({
         resolver: zodResolver(LoginFormSchema),
         defaultValues: {
@@ -47,6 +70,17 @@ export const LoginForm = () => {
         },
     })
 
+    /*
+    * Handle the form submission.
+    *
+    * This function is used to handle the form submission.
+    *
+    * @param values - object The form values.
+    * @innerparam values.email - string The user's email.
+    * @innerparam values.password - string The user's password.
+    *
+    * @returns void
+    * */
     async function onSubmit(values: z.infer<typeof LoginFormSchema>) {
         await credentialLogin(values).then((response) => {
             if (response.code === 200) {
@@ -62,6 +96,13 @@ export const LoginForm = () => {
         })
     }
 
+    /*
+    * Clear the message.
+    *
+    * This function is used to clear the message.
+    *
+    * @returns void
+    * */
     const clearMessage = () => {
         setMessage({message: "", type: ""})
     }
@@ -113,26 +154,7 @@ export const LoginForm = () => {
                     <Button type="submit" variant={'default'} className={'w-full'}>Submit</Button>
                 </form>
             </Form>
-            <div className="relative my-4">
-                <div className="absolute inset-0 flex items-center">
-                    <Separator/>
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-black">Or continue with</span>
-                </div>
-            </div>
-
-            <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                onClick={async () => {
-                    await linkGithub()
-                }}
-            >
-                <GithubIcon className="mr-2 h-4 w-4"/>
-                Continue with GitHub
-            </Button>
+            <Providers/>
         </>
     );
 }

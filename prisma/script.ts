@@ -1,7 +1,19 @@
 import {PrismaClient} from '@prisma/client'
 
+/*
+* Prisma client.
+* */
 export const prisma = new PrismaClient()
 
+/*
+* Retrieve user.
+*
+* This function is used to retrieve a user by their email.
+*
+* @param email - string The user's email.
+*
+* @returns The user or null.
+* */
 export const retrieveUser = async (email: string) => {
     return prisma.user.findUnique({
         where: {
@@ -10,6 +22,15 @@ export const retrieveUser = async (email: string) => {
     })
 }
 
+/*
+* Retrieve user by ID.
+*
+* This function is used to retrieve a user by their ID.
+*
+* @param id - string The user's ID.
+*
+* @returns The user or null.
+* */
 export const retrieveUserById = async (id: string) => {
     return prisma.user.findUnique({
         where: {
@@ -18,6 +39,18 @@ export const retrieveUserById = async (id: string) => {
     })
 };
 
+/*
+* Create user.
+*
+* This function is used to create a user.
+*
+* @param email - string The user's email.
+* @param name - string The user's name.
+* @param gravatarURL - string The user's Gravatar URL.
+* @param password - string The user's password.
+*
+* @returns The user or an error.
+* */
 export const createUser = async (email: string, name: string, gravatarURL: string, password: string) => {
     try {
         const user = prisma.user.create({
@@ -40,6 +73,15 @@ export const createUser = async (email: string, name: string, gravatarURL: strin
     }
 };
 
+/*
+* Retrieve all connected providers.
+*
+* This function is used to retrieve all connected providers from said user.
+*
+* @param userId - string The user's ID.
+*
+* @returns The user's connected providers or an error.
+* */
 export const retrieveAllConnectedProviders = async (userId: string) => {
     return prisma.account.findMany({
         where: {
@@ -48,6 +90,16 @@ export const retrieveAllConnectedProviders = async (userId: string) => {
     })
 };
 
+/*
+* Retrieve provider.
+*
+* This function is used to retrieve a provider by their provider and providerAccountId.
+*
+* @param provider - string The provider.
+* @param userId - string The user's ID.
+*
+* @returns The provider or null.
+* */
 export const retrieveProvider = async (provider: string, userId: string) => {
     return prisma.account.findFirst({
         where: {
@@ -59,6 +111,16 @@ export const retrieveProvider = async (provider: string, userId: string) => {
     })
 };
 
+/*
+* Unlink provider.
+*
+* This function is used to unlink a provider from a user.
+*
+* @param provider - string The provider.
+* @param providerAccountId - string The provider account ID.
+*
+* @returns The provider unlinked or an error.
+* */
 export const unlinkProvider = async (provider: string, providerAccountId: string) => {
     return prisma.account.delete({
         where: {

@@ -1,6 +1,14 @@
 import crypto from 'crypto';
 
-// Function to generate Gravatar URL
+/*
+* Generate a Gravatar URL for a given email address
+*
+* This function is used to generate a Gravatar URL for a given email address.
+*
+* @param email - string The email address to generate the Gravatar URL for.
+*
+* @returns The Gravatar URL.
+* */
 export async function generateGravatarURL(email: string) {
     // Trim and lowercase the email
     const trimmedEmail = email.trim().toLowerCase();

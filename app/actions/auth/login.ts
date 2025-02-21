@@ -1,6 +1,16 @@
 'use server'
 import {signIn} from "@/auth";
 
+/*
+* Log the user in using their credentials.
+*
+* This function is used to log the user in using their credentials.
+*
+* @param data - object The user's credentials.
+* @innerparam data.email - string The user's email.
+* @innerparam data.password - string The user's password.
+* @returns The user session or an error.
+* */
 export const credentialLogin = async (data: { email: string, password: string }) => {
     try {
         const response = await signIn('credentials', {

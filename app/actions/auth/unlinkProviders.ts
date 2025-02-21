@@ -1,6 +1,16 @@
 'use server'
 import {retrieveProvider, unlinkProvider} from "@/prisma/script";
 
+/*
+* Unlink the user's provider.
+*
+* This function is used to unlink the user's provider.
+*
+* @param provider - string The provider to unlink.
+* @param userId - string The user's ID.
+*
+* @returns The provider unlinked or an error.
+* */
 export const unlinkProviders = async (provider: string, userId: string) => {
     const account = await retrieveProvider(provider, userId);
 

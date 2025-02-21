@@ -1,5 +1,12 @@
 import {z} from 'zod';
 
+/*
+* Login form schema.
+*
+* This schema is used to validate the login form.
+*
+* @Returns z.ZodObject
+* */
 export const LoginFormSchema = z.object({
     email: z.string().nonempty({
         message: 'Email is required',
@@ -11,6 +18,13 @@ export const LoginFormSchema = z.object({
     }),
 });
 
+/*
+* Register form schema.
+*
+* This schema is used to validate the register form.
+*
+* @Returns z.ZodObject
+* */
 export const RegisterFormSchema = z.object({
     email: z.string().nonempty({
         message: 'Email is required',

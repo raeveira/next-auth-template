@@ -5,7 +5,12 @@ import {RegisterForm} from "@/components/RegisterForm"
 import {Button} from "@/components/ui/button"
 import Image from "next/image"
 
-export default function Home() {
+/*
+* This is root page component.
+*
+* @returns JSX.Element
+* */
+export default function RootPage() {
     const [login, setLogin] = React.useState(true)
 
     return (
