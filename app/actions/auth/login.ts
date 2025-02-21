@@ -8,9 +8,7 @@ export const credentialLogin = async (data: { email: string, password: string })
             password: data.password,
             redirect: false
         });
-
-        console.log("response", response);
-
+        
         if (response) {
             return ({data: {message: "Logged in successfully"}, code: 200, errorType: ''});
         } else {

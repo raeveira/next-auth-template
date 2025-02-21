@@ -3,7 +3,6 @@ import {useSession} from "next-auth/react";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import {linkGithub} from "@/app/actions/auth/linkProviders";
-import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {retrieveProviders} from "@/app/actions/auth/retrieveProviders";
 import {unlinkProviders} from "@/app/actions/auth/unlinkProviders";
@@ -11,11 +10,12 @@ import {Account} from '@prisma/client'
 import {Message} from "@/components/Message";
 import {messageType} from "@/lib/interfaces";
 import {getServerSession} from "@/app/actions/auth/getServerSession";
+import {signOut} from "@/auth";
+import {SignOutButton} from "@/components/SignOutButton";
 
 const Dashboard = () => {
     const [message, setMessage] = React.useState<messageType>({message: "", type: ""});
     const {data: session, status, update} = useSession();
-    const router = useRouter();
     const [providers, setProviders] = useState<Account[]>([]);
 
     console.log(status);
@@ -109,7 +109,7 @@ const Dashboard = () => {
                         <Button onClick={() => unlink('github', session?.user.id)}>Unlink Github</Button> :
                         <Button onClick={() => link('github')}>Link Github</Button>}
 
-                    <Button onClick={() => router.push('/logout')}>Sign Out</Button>
+                    <SignOutButton/>
                 </>
             )}
         </div>

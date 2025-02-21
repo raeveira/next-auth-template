@@ -51,9 +51,7 @@ export const LoginForm = () => {
         await credentialLogin(values).then((response) => {
             if (response.code === 200) {
                 setMessage({message: response.data.message, type: 'success'})
-                if (router) {
-                    router.push(DEFAULT_LOGIN_REDIRECT);
-                }
+                router.push(DEFAULT_LOGIN_REDIRECT);
             } else {
                 setMessage({message: response.error?.message || '', type: 'error'})
             }
