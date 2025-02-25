@@ -3,7 +3,7 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
 import {LoginFormSchema} from "@/lib/schemas"
 import {z} from "zod";
-import {Eye, EyeClosed, GithubIcon} from 'lucide-react'
+import {Eye, EyeClosed} from 'lucide-react'
 import {DEFAULT_LOGIN_REDIRECT} from "@/lib/routes";
 import {useSearchParams, useRouter} from "next/navigation";
 
@@ -21,8 +21,6 @@ import {Input} from "@/components/ui/input"
 import React, {useEffect} from "react";
 import {credentialLogin} from "@/app/actions/auth/login";
 import {Message} from "@/components/Message";
-import {Separator} from "@/components/ui/separator";
-import {linkGithub} from "@/app/actions/auth/linkProviders";
 import {messageType} from "@/lib/interfaces";
 import {Providers} from "@/components/Providers";
 
