@@ -25,13 +25,9 @@ export const register = async (data: { email: string, name: string, password: st
 
         const hashedPassword = await bcrypt.hash(data.password, 10);
 
-        console.log("hashedPassword", hashedPassword);
-
         const gravatarURL = await generateGravatarURL(data.email);
 
         const response = await createUser(data.email, data.name, gravatarURL, hashedPassword);
-
-        console.log("response", response);
 
         if (response) {
             return ({data: {message: "User Created Successfully", code: 200, errorType: ''}});

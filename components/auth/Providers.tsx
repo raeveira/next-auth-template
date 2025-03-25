@@ -1,7 +1,7 @@
 import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {linkGithub} from "@/app/actions/auth/linkProviders";
-import {GithubIcon} from "lucide-react";
+import { GithubIcon } from 'lucide-react';
 import React from "react";
 
 /*
@@ -16,17 +16,17 @@ export const Providers = () => {
         <>
             <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center">
-                    <Separator/>
+                    <Separator className="bg-slate-700" />
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-black">Or continue with</span>
+                    <span className="bg-[#131620] px-2 text-slate-400">Or continue with</span>
                 </div>
             </div>
 
             <Button
                 type="button"
                 variant="outline"
-                className="w-full"
+                className="w-full border-slate-700 text-white bg-slate-800 hover:bg-slate-900 hover:text-white"
                 onClick={async () => {
                     await linkGithub()
                 }}
