@@ -10,7 +10,7 @@ import {Account} from '@prisma/client'
 import {Message} from "@/components/Message";
 import {messageType} from "@/lib/interfaces";
 import {getServerSession} from "@/app/actions/auth/getServerSession";
-import {SignOutButton} from "@/components/auth/SignOutButton";
+import {SignOutButton} from "@/components/SignOutButton";
 
 /*
 * This is the home page component.
@@ -22,6 +22,8 @@ const Home = () => {
     const [message, setMessage] = React.useState<messageType>({message: "", type: ""});
     const {data: session, status, update} = useSession();
     const [providers, setProviders] = useState<Account[]>([]);
+
+    console.log(status);
 
     /*
     * Fetch the user's connected providers.

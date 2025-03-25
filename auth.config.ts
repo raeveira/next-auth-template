@@ -27,7 +27,7 @@ export default {
                             return null
                         }
                     } else {
-                        console.error("User not found:", parsedCredentials.email);
+                        console.log("User not found:", parsedCredentials.email);
                         // You could throw a custom error here
                         throw new SignInError({message: 'Invalid credentials', cause: 'User not found'})
                     }
@@ -42,7 +42,7 @@ export default {
         })
     ],
     pages: {
-        signIn: "/auth",
+        signIn: "/",
     },
     trustHost: true,
 } satisfies NextAuthConfig

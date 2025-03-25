@@ -3,7 +3,7 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import {useForm} from "react-hook-form"
 import {LoginFormSchema} from "@/lib/schemas"
 import {z} from "zod";
-import { Eye, EyeOff } from 'lucide-react'
+import {Eye, EyeClosed} from 'lucide-react'
 import {DEFAULT_LOGIN_REDIRECT} from "@/lib/routes";
 import {useSearchParams, useRouter} from "next/navigation";
 
@@ -22,7 +22,7 @@ import React, {useEffect} from "react";
 import {credentialLogin} from "@/app/actions/auth/login";
 import {Message} from "@/components/Message";
 import {messageType} from "@/lib/interfaces";
-import {Providers} from "@/components/auth/Providers";
+import {Providers} from "@/components/Providers";
 
 /*
 * This is the login form component.
@@ -109,25 +109,20 @@ export const LoginForm = () => {
         <>
             <Form {...form}>
                 <Message message={message.message} type={message.type} onCloseAction={clearMessage}/>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                     <FormField
                         control={form.control}
                         name="email"
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel className="text-slate-300">Email</FormLabel>
+                                <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input
-                                        placeholder="name@example.com"
-                                        type={'email'}
-                                        {...field}
-                                        className="bg-[#0f1219] border-slate-700 text-white"
-                                    />
+                                    <Input placeholder="email" type={'email'} {...field} />
                                 </FormControl>
-                                <FormDescription className="text-slate-400">
+                                <FormDescription>
                                     This is the email address you used when you signed up.
                                 </FormDescription>
-                                <FormMessage className="text-red-400"/>
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
@@ -136,38 +131,25 @@ export const LoginForm = () => {
                         name="password"
                         render={({field}) => (
                             <FormItem>
-                                <FormLabel className="text-slate-300">Password</FormLabel>
+                                <FormLabel>Password</FormLabel>
                                 <FormControl>
                                     <div className={'relative'}>
-                                        <Input
-                                            placeholder="Enter your password"
-                                            type={showPassword ? 'text' : 'password'}
-                                            {...field}
-                                            className="bg-[#0f1219] border-slate-700 text-white pr-10"
-                                        />
-                                        <Button
-                                            variant={'ghost'}
-                                            className={'absolute top-0 right-0 text-slate-400 hover:text-white !bg-transparent'}
-                                            type={'button'}
-                                            onClick={() => setShowPassword(!showPassword)}
-                                        >
-                                            {!showPassword ? (<EyeOff className="h-4 w-4" />) : (<Eye className="h-4 w-4" />)}
+                                        <Input placeholder="password"
+                                               type={showPassword ? 'text' : 'password'} {...field} />
+                                        <Button variant={'ghost'} className={'absolute top-0 right-0'} type={'button'}
+                                                onClick={() => setShowPassword(!showPassword)}>
+                                            {showPassword ? (<Eye/>) : (<EyeClosed/>)}
                                         </Button>
                                     </div>
                                 </FormControl>
-                                <FormDescription className="text-slate-400">
+                                <FormDescription>
                                     This is your private password.
                                 </FormDescription>
-                                <FormMessage className="text-red-400"/>
+                                <FormMessage/>
                             </FormItem>
                         )}
                     />
-                    <Button
-                        type="submit"
-                        className={'w-full bg-blue-600 hover:bg-blue-700 text-white'}
-                    >
-                        Sign In
-                    </Button>
+                    <Button type="submit" variant={'default'} className={'w-full'}>Submit</Button>
                 </form>
             </Form>
             <Providers/>
