@@ -100,4 +100,5 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
     },
     trustHost: true,
     experimental: {enableWebAuthn: true},
+    debug: process.env.NODE_ENV !== "production"
 })
