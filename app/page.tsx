@@ -8,7 +8,6 @@ import { getServerSession } from "@/app/actions/auth/getServerSession"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Loader2, Settings, Edit } from "lucide-react"
 import Link from "next/link"
-import { Card, CardContent } from "@/components/ui/card"
 import {User} from "@prisma/client";
 import {getUser} from "@/app/actions/getUser";
 import {cn} from "@/lib/utils";
