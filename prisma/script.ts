@@ -1,9 +1,13 @@
-import {PrismaClient} from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
+import { PrismaPg } from '@prisma/adapter-pg'
+import { Pool } from 'pg'
 
 /*
 * Prisma client.
 * */
-export const prisma = new PrismaClient()
+const pool = new Pool({ connectionString: process.env.DATABASE_URL })
+const adapter = new PrismaPg(pool, {schema: 'public'})
+export const prisma = new PrismaClient({ adapter: adapter })
 
 /*
 * Retrieve user.
@@ -51,12 +55,13 @@ export const retrieveUserById = async (id: string) => {
 *
 * @returns The user or an error.
 * */
-export const createUser = async (email: string, name: string, gravatarURL: string, password: string) => {
+export const createUser = async (email: string, name: string, username: string, gravatarURL: string, password: string) => {
     try {
         const user = prisma.user.create({
             data: {
                 email,
                 name,
+                username,
                 image: gravatarURL,
                 password
             }
@@ -131,3 +136,20 @@ export const unlinkProvider = async (provider: string, providerAccountId: string
         },
     });
 };
+
+export const retrieveAllConnectedAuthenticators = async (userId: string) => {
+    return prisma.authenticator.findMany({
+        where: {
+            userId
+        }
+    })
+}
+
+export const updateUserInDatabase = async (userId: string, data: { [key: string]: string | null; }) => {
+    return prisma.user.update({
+        where: {
+            id: userId
+        },
+        data
+    })
+}

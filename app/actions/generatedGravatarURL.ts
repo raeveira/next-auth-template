@@ -1,5 +1,3 @@
-import crypto from 'crypto';
-
 /*
 * Generate a Gravatar URL for a given email address
 *
@@ -10,14 +8,22 @@ import crypto from 'crypto';
 * @returns The Gravatar URL.
 * */
 export async function generateGravatarURL(email: string) {
+    const crypto = globalThis.crypto;
+
     // Trim and lowercase the email
     const trimmedEmail = email.trim().toLowerCase();
 
-    // Hash the email with SHA-256
-    const hashedEmail = crypto.createHash('sha256').update(trimmedEmail).digest('hex');
+    // Convert the email to a Uint8Array
+    const encoder = new TextEncoder();
+    const data = encoder.encode(trimmedEmail);
+
+    // Hash the email with SHA-256 using Web Crypto API
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+    // Convert the hash to a hexadecimal string
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashedEmail = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 
     // Construct Gravatar URL
-    const gravatarURL = `https://www.gravatar.com/avatar/${hashedEmail}?d=identicon`;
-
-    return gravatarURL;
+    return `https://www.gravatar.com/avatar/${hashedEmail}?d=identicon`;
 }

@@ -12,3 +12,14 @@ import {signIn} from "@/auth";
 export const linkGithub = async () => {
     await signIn('github', {callbackUrl: '/api/auth/callback/github'})
 }
+
+/*
+* Link the user's Google account to their profile.
+*
+* This function is used to link the user's Google account to their profile.
+*
+* @returns void.
+* */
+export const linkGoogle = async () => {
+    await signIn('google', {callbackUrl: '/api/auth/callback/google'})
+}

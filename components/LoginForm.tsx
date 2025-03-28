@@ -117,7 +117,8 @@ export const LoginForm = () => {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="email" type={'email'} {...field} />
+                                    <Input placeholder="email" type={'email'} {...field}
+                                           className={'bg-[#101010] hover:bg-[#202020] text-white hover:text-white'}/>
                                 </FormControl>
                                 <FormDescription>
                                     This is the email address you used when you signed up.
@@ -135,8 +136,11 @@ export const LoginForm = () => {
                                 <FormControl>
                                     <div className={'relative'}>
                                         <Input placeholder="password"
-                                               type={showPassword ? 'text' : 'password'} {...field} />
-                                        <Button variant={'ghost'} className={'absolute top-0 right-0'} type={'button'}
+                                               type={showPassword ? 'text' : 'password'} {...field}
+                                               className={'bg-[#101010] hover:bg-[#202020] text-white hover:text-white'}/>
+                                        <Button variant={'ghost'}
+                                                className={'absolute top-0 right-0 hover:bg-transparent hover:text-[#ffffff80]'}
+                                                type={'button'}
                                                 onClick={() => setShowPassword(!showPassword)}>
                                             {showPassword ? (<Eye/>) : (<EyeClosed/>)}
                                         </Button>
@@ -149,7 +153,8 @@ export const LoginForm = () => {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" variant={'default'} className={'w-full'}>Submit</Button>
+                    <Button type="submit" variant={'outline'}
+                            className={'w-full bg-[#101010] hover:bg-[#202020] text-white hover:text-white'}>Submit</Button>
                 </form>
             </Form>
             <Providers/>

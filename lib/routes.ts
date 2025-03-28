@@ -4,7 +4,7 @@
  * @type {string[]}
  */
 export const publicRoutes = [
-    "/"
+    "/auth"
 ]
 
 /*
@@ -13,7 +13,7 @@ export const publicRoutes = [
  * @type {string[]}
  */
 export const authRoutes = [
-    "/"
+    "/auth"
 ]
 
 /*
@@ -35,4 +35,4 @@ export const adminRoutes = [
 /**
  * The default redirect path after a successful login
  */
-export const DEFAULT_LOGIN_REDIRECT = "/home"
+export const DEFAULT_LOGIN_REDIRECT = "/"

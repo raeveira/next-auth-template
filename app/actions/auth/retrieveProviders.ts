@@ -1,5 +1,5 @@
 'use server'
-import {retrieveAllConnectedProviders} from "@/prisma/script";
+import {retrieveAllConnectedAuthenticators, retrieveAllConnectedProviders} from "@/prisma/script";
 import {Account} from '@prisma/client'
 
 
@@ -20,4 +20,14 @@ export const retrieveProviders = async (userId: string): Promise<Account[] | {er
     }
 
     return {error: {message: "No providers found", code: 404, errorType: 'NOT_FOUND'}};
+}
+
+export const retrieveAuthenticators = async (userId: string) => {
+    const passKey = await retrieveAllConnectedAuthenticators(userId);
+
+    if (passKey) {
+        return passKey;
+    }
+
+    return {error: {message: "No passkey found", code: 404, errorType: 'NOT_FOUND'}};
 }

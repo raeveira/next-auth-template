@@ -1,7 +1,7 @@
 'use server'
 
 import {createUser, retrieveUser} from "@/prisma/script";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt-edge";
 import {generateGravatarURL} from "@/app/actions/generatedGravatarURL";
 
 /*
@@ -16,20 +16,20 @@ import {generateGravatarURL} from "@/app/actions/generatedGravatarURL";
 *
 * @returns The user session or an error.
 * */
-export const register = async (data: { email: string, name: string, password: string, confirmPassword: string }) => {
+export const register = async (data: { email: string, name: string, username: string, password: string, confirmPassword: string }) => {
     try {
         const existingUser = await retrieveUser(data.email);
         if (existingUser) {
             return { error: {message: "Email already exists", code: 409, errorType: 'Conflict'} };
         }
 
-        const hashedPassword = await bcrypt.hash(data.password, 10);
+        const hashedPassword = bcrypt.hashSync(data.password, 10);
 
         console.log("hashedPassword", hashedPassword);
 
         const gravatarURL = await generateGravatarURL(data.email);
 
-        const response = await createUser(data.email, data.name, gravatarURL, hashedPassword);
+        const response = await createUser(data.email, data.name, data.username, gravatarURL, hashedPassword);
 
         console.log("response", response);
 

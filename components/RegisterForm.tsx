@@ -39,6 +39,7 @@ export const RegisterForm = () => {
         defaultValues: {
             email: "",
             name: "",
+            username: "",
             password: "",
             confirmPassword: ""
         },
@@ -79,7 +80,8 @@ export const RegisterForm = () => {
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="email" type={'email'} {...field} />
+                                    <Input placeholder="email" type={'email'} {...field}
+                                           className={'bg-[#101010] hover:bg-[#202020] text-white hover:text-white'}/>
                                 </FormControl>
                                 <FormDescription>
                                     Your email address.
@@ -95,10 +97,28 @@ export const RegisterForm = () => {
                             <FormItem>
                                 <FormLabel>Name</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="name" type={'text'} {...field} />
+                                    <Input placeholder="name" type={'text'} {...field}
+                                           className={'bg-[#101010] hover:bg-[#202020] text-white hover:text-white'}/>
                                 </FormControl>
                                 <FormDescription>
                                     Your full name.
+                                </FormDescription>
+                                <FormMessage/>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="username"
+                        render={({field}) => (
+                            <FormItem>
+                                <FormLabel>Username</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="username" type={'text'} {...field}
+                                           className={'bg-[#101010] hover:bg-[#202020] text-white hover:text-white'}/>
+                                </FormControl>
+                                <FormDescription>
+                                    Your username.
                                 </FormDescription>
                                 <FormMessage/>
                             </FormItem>
@@ -113,8 +133,11 @@ export const RegisterForm = () => {
                                 <FormControl>
                                     <div className={'relative'}>
                                         <Input placeholder="password"
-                                               type={showPassword ? 'text' : 'password'} {...field} />
-                                        <Button variant={'ghost'} className={'absolute top-0 right-0'} type={'button'}
+                                               type={showPassword ? 'text' : 'password'} {...field}
+                                               className={'bg-[#101010] hover:bg-[#202020] text-white hover:text-white'}/>
+                                        <Button variant={'ghost'}
+                                                className={'absolute top-0 right-0 hover:bg-transparent hover:text-[#ffffff80]'}
+                                                type={'button'}
                                                 onClick={() => setShowPassword(!showPassword)}>
                                             {showPassword ? (<Eye/>) : (<EyeClosed/>)}
                                         </Button>
@@ -136,8 +159,11 @@ export const RegisterForm = () => {
                                 <FormControl>
                                     <div className={'relative'}>
                                         <Input placeholder="Confirm Password"
-                                               type={showConfirmPassword ? 'text' : 'password'} {...field} />
-                                        <Button variant={'ghost'} className={'absolute top-0 right-0'} type={'button'}
+                                               type={showConfirmPassword ? 'text' : 'password'} {...field}
+                                               className={'bg-[#101010] hover:bg-[#202020] text-white hover:text-white'}/>
+                                        <Button variant={'ghost'}
+                                                className={'absolute top-0 right-0 hover:bg-transparent hover:text-[#ffffff80]'}
+                                                type={'button'}
                                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
                                             {showConfirmPassword ? (<Eye/>) : (<EyeClosed/>)}
                                         </Button>
@@ -150,7 +176,8 @@ export const RegisterForm = () => {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit" variant={'default'} className={'w-full'}>Submit</Button>
+                    <Button type="submit" variant={'outline'}
+                            className={'w-full bg-[#101010] hover:bg-[#202020] text-white hover:text-white'}>Submit</Button>
                 </form>
             </Form>
             <Providers/>

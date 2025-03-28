@@ -34,6 +34,17 @@ export const RegisterFormSchema = z.object({
     name: z.string().nonempty({
         message: 'Name is required',
     }),
+    username: z
+        .string()
+        .min(3, {
+            message: 'Username must be at least 3 characters',
+        })
+        .max(30, {
+            message: 'Username must be less than 30 characters',
+        })
+        .regex(/^[a-zA-Z0-9_]+$/, {
+            message: 'Username can only contain letters, numbers, and underscores',
+        }),
     password: z.string().nonempty({
         message: 'Password is required',
     }).min(8, {
@@ -53,3 +64,49 @@ export const RegisterFormSchema = z.object({
 }).refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
 })
+
+/*
+ * Profile form schema.
+ *
+ * This schema is used to validate the profile edit form.
+ *
+ * @Returns z.ZodObject
+ */
+export const ProfileFormSchema = z.object({
+    name: z
+        .string()
+        .min(2, {
+            message: 'Name must be at least 2 characters',
+        })
+        .max(50, {
+            message: 'Name must be less than 50 characters',
+        }),
+    username: z
+        .string()
+        .min(3, {
+            message: 'Username must be at least 3 characters',
+        })
+        .max(30, {
+            message: 'Username must be less than 30 characters',
+        })
+        .regex(/^[a-zA-Z0-9_]+$/, {
+            message: 'Username can only contain letters, numbers, and underscores',
+        }),
+    bio: z
+        .string()
+        .max(160, {
+            message: 'Bio must be less than 160 characters',
+        })
+        .optional()
+        .or(z.literal('')),
+    website: z
+        .string()
+        .url({
+            message: 'Please enter a valid URL',
+        })
+        .optional()
+        .or(z.literal('')),
+    image: z.instanceof(File).optional().or(z.literal("")),
+})
+
+export type ProfileFormValues = z.infer<typeof ProfileFormSchema>

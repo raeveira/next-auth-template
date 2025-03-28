@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import {SessionProvider} from "next-auth/react";
 import {auth} from "@/auth";
+import React from "react";
 
 const inter = Inter({
     display: "swap",

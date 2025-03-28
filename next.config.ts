@@ -1,7 +1,7 @@
-import type { NextConfig } from "next";
+import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+    /* config options here */
     images: {
         remotePatterns: [
             {
@@ -9,8 +9,17 @@ const nextConfig: NextConfig = {
                 hostname: "www.gravatar.com",
                 port: "",
                 pathname: "/**",
+            },
+            {
+                protocol: "https",
+                hostname: "avatars.githubusercontent.com",
+                port: "",
+                pathname: "/**",
             }
         ]
+    },
+    experimental: {
+        nodeMiddleware: true
     }
 };
 

@@ -1,15 +1,12 @@
-import authConfig from "@/auth.config"
+import {auth as middleware} from "@/auth";
 import {
     DEFAULT_LOGIN_REDIRECT,
     apiAuthPrefix,
     authRoutes,
     publicRoutes
 } from "@/lib/routes"
-import NextAuth from "next-auth";
 
-const {auth} = NextAuth(authConfig);
-
-export default auth((req) => {
+export default middleware((req) => {
     const {nextUrl} = req;
     const isLoggedIn = !!req.auth;
 
@@ -29,7 +26,7 @@ export default auth((req) => {
     }
 
     if (!isLoggedIn && !isPublicRoute) {
-        return Response.redirect(new URL("/", nextUrl));
+        return Response.redirect(new URL("/auth", nextUrl));
     }
 
     return;
@@ -42,4 +39,5 @@ export const config = {
         // Always run for API routes
         '/(api|trpc)(.*)',
     ],
+    runtime: 'nodejs',
 }

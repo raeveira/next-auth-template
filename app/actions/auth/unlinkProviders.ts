@@ -12,7 +12,7 @@ import {retrieveProvider, unlinkProvider} from "@/prisma/script";
 * @returns The provider unlinked or an error.
 * */
 export const unlinkProviders = async (provider: string, userId: string) => {
-    const account = await retrieveProvider(provider, userId);
+        const account = await retrieveProvider(provider, userId);
 
     if (!account) {
         return {error: {message: "Provider not found", code: 404, errorType: 'NOT_FOUND'}};
