@@ -19,7 +19,7 @@ export default function RootPage() {
                 <Image
                     width={1920}
                     height={1080}
-                    src="/home-bg.png"
+                    src="/images/home-bg.png"
                     alt="Background"
                     priority
                     className={'object-cover w-full h-full'}
@@ -36,7 +36,7 @@ export default function RootPage() {
                 <div
                     className="w-full max-w-md border-2 px-4 py-6 rounded-xl bg-[#101010] border-neutral-300 max-h-[80%] overflow-y-auto">
                     <div className={'w-full mb-8 flex items-center justify-center'}>
-                        <Image src={'/logo-nbg.ico'} alt={'Logo Icon'} height={64} width={64}/>
+                        <Image src={'/images/logo-nbg.ico'} alt={'Logo Icon'} height={64} width={64}/>
                     </div>
                     <div className="w-full flex mb-6 space-x-2">
                         <Button

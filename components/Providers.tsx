@@ -2,7 +2,7 @@ import {Separator} from "@/components/ui/separator";
 import {Button} from "@/components/ui/button";
 import {linkGithub, linkGoogle} from "@/app/actions/auth/linkProviders";
 import {GithubIcon, KeyIcon} from "lucide-react";
-import GoogleIcon from '@/public/google.png'
+import GoogleIcon from '@/public/images/google.png'
 import React from "react";
 import Image from "next/image";
 import {signIn} from "next-auth/webauthn";
@@ -65,7 +65,6 @@ export const Providers = () => {
                     Continue with Passkey
                 </Button>
             </div>
-
         </>
     )
 }
