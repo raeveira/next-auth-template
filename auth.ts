@@ -34,7 +34,7 @@ export const {auth, handlers, signIn, signOut} = NextAuth({
                     } else {
                         console.log("User not found:", parsedCredentials.email);
                         // You could throw a custom error here
-                        throw new SignInError({message: 'Invalid credentials', cause: 'User not found'})
+                        throw new SignInError('Invalid credentials')
                     }
                 } catch (error) {
                     throw error
