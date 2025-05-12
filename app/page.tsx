@@ -33,6 +33,7 @@ const Home = () => {
       try {
         await update(await getServerSession())
       } catch (error) {
+        console.error("Error during user fetch:", error)
         setMessage({
           message: "Failed to authenticate. Please try again.",
           type: "error",
@@ -56,6 +57,7 @@ const Home = () => {
           const response = await getUser(session.user.id)
           setUser(response)
         } catch (error) {
+          console.error("Error during session fetch:", error)
           setMessage({
             message: "Failed to load profile data. Please try again.",
             type: "error",
