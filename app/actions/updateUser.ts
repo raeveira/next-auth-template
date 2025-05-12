@@ -8,13 +8,11 @@ export const updateUser = async (userId: string, oldUser: {
     name: string,
     username: string | null,
     bio: string | null,
-    website: string | null,
     image: string | null;
 }, newUser: {
     name: string,
     username: string | null,
     bio: string | null,
-    website: string | null,
     image: string | null;
 }) => {
 
@@ -65,10 +63,6 @@ export const updateUser = async (userId: string, oldUser: {
 
     if (oldUser.bio !== newUser.bio) {
         updatedFields.bio = newUser.bio;
-    }
-
-    if (oldUser.website !== newUser.website) {
-        updatedFields.website = newUser.website;
     }
 
     if (oldUser.image !== newUser.image) {

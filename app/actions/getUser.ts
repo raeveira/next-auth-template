@@ -8,5 +8,5 @@ export const getUser = async (userId: string) => {
         return { error: { message: "User not found", code: 404, errorType: 'NOT_FOUND' } };
     }
 
-    return { image: response.image, bio: response.bio, name: response.name, website: response.website, username: response.username };
+    return { image: response.image, bio: response.bio, name: response.name, username: response.username };
 }

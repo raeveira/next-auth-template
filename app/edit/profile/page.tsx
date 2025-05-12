@@ -41,7 +41,6 @@ const EditProfilePage = () => {
             name: "",
             username: "",
             bio: "",
-            website: "",
             image: undefined,
         },
     })
@@ -55,8 +54,7 @@ const EditProfilePage = () => {
             form.reset({
                 name: session.user.name || "",
                 username: session.user.username || "",
-                bio: user.bio || "", // Add your bio field from session if available
-                website: user.website || "", // Add your website field from session if available
+                bio: user.bio || "",
             })
             setImagePreview(session.user.image || null)
         }
@@ -126,14 +124,12 @@ const EditProfilePage = () => {
             image: user.image,
             bio: user.bio || null,
             name: user.name,
-            website: user.website || null,
             username: user.username || null
         }, {
             image: imagePreview,
             username: values.username,
             bio: values.bio || null,
             name: values.name,
-            website: values.website || null
         }).then(async (response) => {
             if (response.data) {
                 console.log("UPDATED SESSION: ", {...session, user: response.data.user})
@@ -280,20 +276,6 @@ const EditProfilePage = () => {
                                                 </FormControl>
                                                 <FormDescription>Write a short bio about yourself. Maximum 160
                                                     characters.</FormDescription>
-                                                <FormMessage/>
-                                            </FormItem>
-                                        )}
-                                    />
-
-                                    <FormField
-                                        control={form.control}
-                                        name="website"
-                                        render={({field}) => (
-                                            <FormItem>
-                                                <FormLabel>Website</FormLabel>
-                                                <FormControl>
-                                                    <Input placeholder="https://yourwebsite.com" {...field} />
-                                                </FormControl>
                                                 <FormMessage/>
                                             </FormItem>
                                         )}

@@ -99,13 +99,6 @@ export const ProfileFormSchema = z.object({
         })
         .optional()
         .or(z.literal('')),
-    website: z
-        .string()
-        .url({
-            message: 'Please enter a valid URL',
-        })
-        .optional()
-        .or(z.literal('')),
     image: z.instanceof(File).optional().or(z.literal("")),
 })
 

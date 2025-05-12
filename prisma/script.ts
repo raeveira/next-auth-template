@@ -1,13 +1,9 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
-import { Pool } from 'pg'
 
 /*
 * Prisma client.
 * */
-const pool = new Pool({ connectionString: process.env.DATABASE_URL })
-const adapter = new PrismaPg(pool, {schema: 'public'})
-export const prisma = new PrismaClient({ adapter: adapter })
+export const prisma = new PrismaClient()
 
 /*
 * Retrieve user.
